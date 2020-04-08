@@ -1,0 +1,1 @@
+C:/cygwin64/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/Socket.dir/main.cpp.o  -o Socket.exe -Wl,--out-implib,libSocket.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
