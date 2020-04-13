@@ -57,30 +57,45 @@ include CMakeFiles/Socket.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Socket.dir/flags.make
 
-CMakeFiles/Socket.dir/main.cpp.o: CMakeFiles/Socket.dir/flags.make
-CMakeFiles/Socket.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Socket.dir/main.cpp.o"
-	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Socket.dir/main.cpp.o -c /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/main.cpp
+CMakeFiles/Socket.dir/server.cpp.o: CMakeFiles/Socket.dir/flags.make
+CMakeFiles/Socket.dir/server.cpp.o: ../server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Socket.dir/server.cpp.o"
+	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Socket.dir/server.cpp.o -c /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/server.cpp
 
-CMakeFiles/Socket.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Socket.dir/main.cpp.i"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/main.cpp > CMakeFiles/Socket.dir/main.cpp.i
+CMakeFiles/Socket.dir/server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Socket.dir/server.cpp.i"
+	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/server.cpp > CMakeFiles/Socket.dir/server.cpp.i
 
-CMakeFiles/Socket.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Socket.dir/main.cpp.s"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/main.cpp -o CMakeFiles/Socket.dir/main.cpp.s
+CMakeFiles/Socket.dir/server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Socket.dir/server.cpp.s"
+	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/server.cpp -o CMakeFiles/Socket.dir/server.cpp.s
+
+CMakeFiles/Socket.dir/client.cpp.o: CMakeFiles/Socket.dir/flags.make
+CMakeFiles/Socket.dir/client.cpp.o: ../client.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Socket.dir/client.cpp.o"
+	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Socket.dir/client.cpp.o -c /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/client.cpp
+
+CMakeFiles/Socket.dir/client.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Socket.dir/client.cpp.i"
+	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/client.cpp > CMakeFiles/Socket.dir/client.cpp.i
+
+CMakeFiles/Socket.dir/client.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Socket.dir/client.cpp.s"
+	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/client.cpp -o CMakeFiles/Socket.dir/client.cpp.s
 
 # Object files for target Socket
 Socket_OBJECTS = \
-"CMakeFiles/Socket.dir/main.cpp.o"
+"CMakeFiles/Socket.dir/server.cpp.o" \
+"CMakeFiles/Socket.dir/client.cpp.o"
 
 # External object files for target Socket
 Socket_EXTERNAL_OBJECTS =
 
-Socket.exe: CMakeFiles/Socket.dir/main.cpp.o
+Socket.exe: CMakeFiles/Socket.dir/server.cpp.o
+Socket.exe: CMakeFiles/Socket.dir/client.cpp.o
 Socket.exe: CMakeFiles/Socket.dir/build.make
 Socket.exe: CMakeFiles/Socket.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Socket.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Socket.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Socket.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

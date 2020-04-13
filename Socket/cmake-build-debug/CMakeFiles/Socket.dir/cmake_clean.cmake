@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Socket.dir/main.cpp.o"
+  "CMakeFiles/Socket.dir/client.cpp.o"
+  "CMakeFiles/Socket.dir/server.cpp.o"
   "Socket.exe"
   "Socket.pdb"
   "libSocket.dll.a"

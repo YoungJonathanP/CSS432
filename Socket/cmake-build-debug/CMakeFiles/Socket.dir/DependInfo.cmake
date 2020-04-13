@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/main.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles/Socket.dir/main.cpp.o"
+  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/client.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles/Socket.dir/client.cpp.o"
+  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/server.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Socket/cmake-build-debug/CMakeFiles/Socket.dir/server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
