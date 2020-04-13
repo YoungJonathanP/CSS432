@@ -51,6 +51,7 @@ int main(int argc, char *argv[]) {
     // helps when you shutdown the server and assists with debugging. Also allows for quick reuse.
     // This allows the port to be free sooner
     setsockopt(serverSD, SOL_SOCKET, SO_REUSEADDR, (char *)&on, sizeof(int));
+    cout << "Socket #: " << serverSD << endl;
 
     // Bind, Listen, Accept
     // bind serverSD socket to address.
@@ -69,6 +70,7 @@ int main(int argc, char *argv[]) {
     // newSD is returned socket that points back to the client. This portion creates the accept
     // This is also considered a blocking call, this will stop the actions on this side until accept is handled
     int newSD = accept(serverSD, (sockaddr *) &newSockAddr, &newSockAddrSize);
+    cout << "Accepted Socket #: " << newSD <<endl;
 
     // allows for read and write back to client. Read from socket (newSD), reading to (databuf), read up to (BUFFSIZE).
     // What is returned from the read, is the number of bytes read
@@ -82,6 +84,9 @@ int main(int argc, char *argv[]) {
     databuf[13] = 'R';
     // write this back to client. Write to socket (newSD), write updated databuf (13 = 'R')
     int bytesWritten = write(newSD, databuf, BUFFSIZE);
+    // print out how many bytes were written
+    cout << "Bytes Written: " << bytesWritten << endl;
+
 
     // close client socket
     close(newSD);
