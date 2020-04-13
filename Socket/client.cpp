@@ -21,7 +21,7 @@ using namespace std;
 // size of buffer we read and write into
 const int BUFFSIZE = 1500;
 
-main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
     // character pointer of server name -- server name example = UW1-320-06
     char *serverName;
     // port server is waiting on (socket is defined by: IP address and Port== unique port in world to connect to)

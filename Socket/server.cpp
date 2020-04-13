@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <w32api/psdk_inc/_ip_types.h>
 
 using namespace std;
 
