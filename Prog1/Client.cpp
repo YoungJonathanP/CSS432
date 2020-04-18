@@ -29,6 +29,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+// Chrono measurement came from
+// https://www.techiedelight.com/measure-elapsed-time-program-chrono-library/
+#include <chrono>
 
 using namespace std;
 
@@ -210,7 +213,7 @@ int main(int argc, char *argv[]){
 //    cout << "Bytes Written: " << bytesWritten << endl;
 
     // This will measure the time the tasks take -- using the Chrono time lib
-    // -- TODO
+    auto start = chrono::steady_clock::now();
 
     // calls cycles for repetition and uses type to determine the action
     for (int i = 0; i < repetition; i++){
@@ -243,7 +246,7 @@ int main(int argc, char *argv[]){
     }
 
     // End the timer for the tasks
-    // TODO
+    auto end = chrono::steady_clock::now();
 
     // server writes back information to client
     // read from socket (clientSD) into databuf (should be 1500 bytes read)
@@ -258,10 +261,16 @@ int main(int argc, char *argv[]){
     //cout << "There were " << readTimes << " read calls made" << endl;
 
     // Print information about the test
-    // TODO
     int time = 0;
-    int throughput = 0;
-    cout << "Test #" << type << ": time = " << time << " usec, #reads = " <<
+    time = chrono::duration_cast<chrono::microseconds>(end-start).count();
+    float throughput = 0.0;
+    // convert size of transfer to Gigabit -- 125,000,000B = 1Gb
+    // then divide that value by the time in seconds -- 1,000,000µsec = 1 sec
+    // the result of that value is Gbps throughput
+    // nbufs * bufsize = 1500B (expected) / 125000000 = 0.000012 (expected)
+    // 0.000012 / (time/1000000) = throughput Gbps
+    throughput = (((nbufs * bufsize) / 125000000) / (time / 1000000));
+    cout << "Test #" << type << ": time = " << time << " µsec, #reads = " <<
     nreads << ", throughput " << throughput << " Gbps" << endl;
 
     // close client socket when done
