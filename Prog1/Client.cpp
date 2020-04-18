@@ -211,20 +211,23 @@ int main(int argc, char *argv[]){
     // write to server databuf info up to bufsize
 //    int bytesWritten = write(clientSD, databuf, bufsize);
 //    cout << "Bytes Written: " << bytesWritten << endl;
-
+    cout << "Arguments include: Port = " << port << ", num of repetitions = "
+    << repetition << ", number of data buffers = " << nbufs
+    << ", size of data buffers = " << bufsize << ", type = " << type << endl;
     // send the number of iterations
     int numToSend = htonl(repetition);
     write(clientSD, &numToSend, sizeof(numToSend));
 
     // This will measure the time the tasks take -- using the Chrono time lib
     auto start = chrono::steady_clock::now();
-
+    cout << "Clock started" << endl;
     // calls cycles for repetition and uses type to determine the action
 
         // type 1 determines Multiple writes -- invokes the write() system
         // call for each data buffer, thus resulting in calling as many
         // write()s as the number of data buffers (nbufs)
         if (type == 1) {
+            cout << "Type 1 running" << endl;
             for (int i = 0; i < repetition; i++) {
                 for (int j = 0; j < nbufs; j++) {
                     write(clientSD, databuf[j], bufsize);
@@ -236,6 +239,7 @@ int main(int argc, char *argv[]){
         // data buffer as well as storing the buffer size in its iov_len
         // field; thereafter calls writev() to send all data buffers at once.
         if (type == 2) {
+            cout << "Type 2 running" << endl;
             for (int i = 0; i < repetition; i++) {
                 struct iovec vector[nbufs];
                 for (int j = 0; j < nbufs; j++) {
@@ -249,6 +253,7 @@ int main(int argc, char *argv[]){
         // of data buffers, and thereafter calls write() to send this array,
         // (i.e. all data buffers) at once.
         if (type == 3) {
+            cout << "Type 3 running" << endl;
             for (int i = 0; i < repetition; i++) {
                 write(clientSD, databuf, (nbufs * bufsize));
             }
@@ -257,7 +262,7 @@ int main(int argc, char *argv[]){
 
     // End the timer for the tasks
     auto end = chrono::steady_clock::now();
-
+    cout << "Clock ended" << endl;
     // server writes back information to client
     // read from socket (clientSD) into databuf (should be 1500 bytes read)
 //    int bytesRead = read(clientSD, databuf, bufsize);
@@ -279,7 +284,10 @@ int main(int argc, char *argv[]){
     // the result of that value is Gbps throughput
     // nbufs * bufsize = 1500B (expected) / 125000000 = 0.000012 (expected)
     // 0.000012 / (time/1000000) = throughput Gbps
-    throughput = (((nbufs * bufsize) / 125000000) / (time / 1000000));
+    int expectedSize = nbufs * bufsize;
+    cout << "Expected size is 1500, actual size is :" << expectedSize << endl;
+    cout << "Time in microseconds = " << time << endl;
+    throughput = ((expectedSize / 125000000) / (time / 1000000));
     cout << "Test #" << type << ": time = " << time << " µsec, #reads = " <<
     nreads << ", throughput " << throughput << " Gbps" << endl;
 

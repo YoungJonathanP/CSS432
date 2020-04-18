@@ -137,9 +137,11 @@ int main(int argc, char *argv[]) {
     int receivedInt = 0;
     int convertCount = 0;
     int retStatus = read(serverSD, &convertCount, sizeof(convertCount));
+    cout << "retStatus = " << retStatus << endl;
     if (retStatus > 0){
         int nRead;
         receivedInt = ntohl(convertCount);
+        cout << "Repetition passed from client = " << receivedInt << endl;
         for (int i = 0; i <= receivedInt; i++) {
             nRead = 0;
             while (nRead < BUFSIZE) {
@@ -148,7 +150,9 @@ int main(int argc, char *argv[]) {
             }
         }
         // sends information about how many reads were made
+        // htonl is conversion for sending info
         convertCount =  htonl(nRead);
+        cout << "Converted count is " << convertCount << endl;
         write(newSD, &convertCount, sizeof(convertCount));
     }
 
