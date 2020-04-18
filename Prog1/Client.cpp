@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
     char *serverName; // argv[1]
     // port server is waiting on (socket is defined by: IP address and
     // Port== unique port in world to connect to)
-    char port; // port is equal to last 5 of student ID = "78512" argv[2]
+    int port; // port is equal to last 5 of student ID = "78512" argv[2]
     // SID value of 78512 exceeds acceptable port values (65535) use 51278
     // number of times to send a set of data buffers argv[3]
     int repetition;
@@ -212,17 +212,23 @@ int main(int argc, char *argv[]){
 //    int bytesWritten = write(clientSD, databuf, bufsize);
 //    cout << "Bytes Written: " << bytesWritten << endl;
 
+    // send the number of iterations
+    int numToSend = htonl(repetition);
+    write(clientSD, &numToSend, sizeof(numToSend));
+
     // This will measure the time the tasks take -- using the Chrono time lib
     auto start = chrono::steady_clock::now();
 
     // calls cycles for repetition and uses type to determine the action
-    for (int i = 0; i < repetition; i++){
+
         // type 1 determines Multiple writes -- invokes the write() system
         // call for each data buffer, thus resulting in calling as many
         // write()s as the number of data buffers (nbufs)
-        if (type == 1){
-            for (int j = 0; j < nbufs; j++){
-                write(clientSD, databuf[j], bufsize);
+        if (type == 1) {
+            for (int i = 0; i < repetition; i++) {
+                for (int j = 0; j < nbufs; j++) {
+                    write(clientSD, databuf[j], bufsize);
+                }
             }
         }
         // type 2 determines writev -- allocates an array of iovec data
@@ -230,20 +236,24 @@ int main(int argc, char *argv[]){
         // data buffer as well as storing the buffer size in its iov_len
         // field; thereafter calls writev() to send all data buffers at once.
         if (type == 2) {
-            struct iovec vector[nbufs];
-            for (int j = 0; j < nbufs; j++) {
-                vector[j].iov_base = databuf[j];
-                vector[j].iov_len = bufsize;
+            for (int i = 0; i < repetition; i++) {
+                struct iovec vector[nbufs];
+                for (int j = 0; j < nbufs; j++) {
+                    vector[j].iov_base = databuf[j];
+                    vector[j].iov_len = bufsize;
+                }
+                writev(clientSD, vector, nbufs);
             }
-            writev(clientSD, vector, nbufs);
         }
         // type 3 determines single write -- allocates an nbufs-sized array
         // of data buffers, and thereafter calls write() to send this array,
         // (i.e. all data buffers) at once.
-        if (type == 3){
-            write(clientSD, databuf, (nbufs * bufsize));
+        if (type == 3) {
+            for (int i = 0; i < repetition; i++) {
+                write(clientSD, databuf, (nbufs * bufsize));
+            }
         }
-    }
+
 
     // End the timer for the tasks
     auto end = chrono::steady_clock::now();

@@ -44,11 +44,15 @@ const int NUM_CONNECTIONS = 5;
  */
 int main(int argc, char *argv[]) {
     // socket consists of a port and a server name
-    int ServerPort;
-    char *servername;
+    //int ServerPort;
+    //char *servername;
     char databuf[BUFSIZE];
+    int convertCount;
     // zero the databuf
     bzero(databuf, BUFSIZE);
+
+    int receivedIterations = 0;
+
 
     // TODO -- Assign pthread data to allow for multiple connections
 
@@ -56,17 +60,17 @@ int main(int argc, char *argv[]) {
     // May need to be changed to prevent collisions
     int port; // port request should match client port -- test  = 51278
     // Argument verification
-    if (argc != 2){
+    if (argc != 2) {
         cerr << "Please enter valid port for " << argv[0] << endl;
     }
     port = stoi(argv[1]);
-    // Verifies that the port is within valid access parameters
-    // (49152 < port < 65535)
-    if (port < 49152 || port > 65535){
-        cerr << "Usage: " << argv[0] << " is not accessing a valid"
-                                        " port value." << endl;
-        return -1;
-    }
+//    // Verifies that the port is within valid access parameters
+//    // (49152 < port < 65535)
+//    if (port < 49152 || port > 65535){
+//        cerr << "Usage: " << argv[0] << " is not accessing a valid"
+//                                        " port value." << endl;
+//        return -1;
+//    }
 
     // data structure where address can be stored and binded to--
     // sockaddr_in is a struct
@@ -81,7 +85,8 @@ int main(int argc, char *argv[]) {
     // htonl changes format of address to something network can understand
     acceptSocketAddress.sin_addr.s_addr = htonl(INADDR_ANY);
     // set socket port to port int variable (12345)
-    // htons
+    // htons converts unsigned short integer hostshort from host byte order
+    // to network byte order
     acceptSocketAddress.sin_port = htons(port);
 
     // Create Socket -- AF_INET says to use the internet --
@@ -91,7 +96,7 @@ int main(int argc, char *argv[]) {
     const int on = 1;
     // helps when you shutdown the server and assists with debugging.
     // Also allows for quick reuse. This allows the port to be free sooner
-    setsockopt(serverSD, SOL_SOCKET, SO_REUSEADDR, (char *)&on, sizeof(int));
+    setsockopt(serverSD, SOL_SOCKET, SO_REUSEADDR, (char *) &on, sizeof(int));
     cout << "Socket #: " << serverSD << endl;
 
     // Bind, Listen, Accept
@@ -100,7 +105,7 @@ int main(int argc, char *argv[]) {
     // descriptor table
     // acceptSocketAddress is address where (we) listen
     int rc = bind(serverSD, (sockaddr *) &acceptSocketAddress,
-            sizeof(acceptSocketAddress));
+                  sizeof(acceptSocketAddress));
 
     // Listen
     // assign serverSD socket to have up to 5 listeners(or connections)
@@ -115,7 +120,7 @@ int main(int argc, char *argv[]) {
     // This is also considered a blocking call, this will stop the
     // actions on this side until accept is handled
     int newSD = accept(serverSD, (sockaddr *) &newSockAddr, &newSockAddrSize);
-    cout << "Accepted Socket #: " << newSD <<endl;
+    cout << "Accepted Socket #: " << newSD << endl;
 
     // allows for read and write back to client. Read from socket (newSD),
     // reading to (databuf), read up to (BUFFSIZE).
@@ -127,9 +132,24 @@ int main(int argc, char *argv[]) {
 //    cout << databuf[0] << endl;
 
     // ensures that read retrieves all BUFSIZE
-    int count = 0;
-    for (int nread = 0; (nread += read(newSD, databuf, BUFSIZE - nread)) <
-    BUFSIZE; count++)
+//    int count = 0;
+//    for (int nread = 0; (nread += read(newSD, databuf, BUFSIZE - nread)) <
+//    BUFSIZE; count++);
+
+    int retStatus = read(serverSD, &convertCount, sizeof(convertCount));
+
+    int nRead;
+    for (int i = 0; i <= retStatus; i++) {
+        nRead = 0;
+        while (nRead < BUFSIZE) {
+            int bytesRead = read(newSD, databuf, BUFSIZE - nRead);
+            nRead += bytesRead;
+        }
+    }
+
+    // sends information about how many reads were made
+    convertCount =  htonl(nRead);
+    write(newSD, &convertCount, sizeof(convertCount));
 
     // set char 13 to 'R'
 //    databuf[13] = 'R';
@@ -139,8 +159,7 @@ int main(int argc, char *argv[]) {
     // print out how many bytes were written
 //    cout << "Bytes Written: " << bytesWritten << endl;
 
-    // sends information about how many reads were made
-    write(newSD, &count, sizeof(count));
+
 
     // close client socket
     close(newSD);
