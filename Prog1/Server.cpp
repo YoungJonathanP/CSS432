@@ -47,7 +47,6 @@ int main(int argc, char *argv[]) {
     //int ServerPort;
     //char *servername;
     char databuf[BUFSIZE];
-    int convertCount;
     // zero the databuf
     bzero(databuf, BUFSIZE);
 
@@ -135,21 +134,25 @@ int main(int argc, char *argv[]) {
 //    int count = 0;
 //    for (int nread = 0; (nread += read(newSD, databuf, BUFSIZE - nread)) <
 //    BUFSIZE; count++);
-
+    int receivedInt = 0;
+    int convertCount = 0;
     int retStatus = read(serverSD, &convertCount, sizeof(convertCount));
-
-    int nRead;
-    for (int i = 0; i <= retStatus; i++) {
-        nRead = 0;
-        while (nRead < BUFSIZE) {
-            int bytesRead = read(newSD, databuf, BUFSIZE - nRead);
-            nRead += bytesRead;
+    if (retStatus > 0){
+        int nRead;
+        receivedInt = ntohl(convertCount);
+        for (int i = 0; i <= receivedInt; i++) {
+            nRead = 0;
+            while (nRead < BUFSIZE) {
+                int bytesRead = read(newSD, databuf, BUFSIZE - nRead);
+                nRead += bytesRead;
+            }
         }
+        // sends information about how many reads were made
+        convertCount =  htonl(nRead);
+        write(newSD, &convertCount, sizeof(convertCount));
     }
 
-    // sends information about how many reads were made
-    convertCount =  htonl(nRead);
-    write(newSD, &convertCount, sizeof(convertCount));
+
 
     // set char 13 to 'R'
 //    databuf[13] = 'R';
