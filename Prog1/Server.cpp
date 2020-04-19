@@ -17,56 +17,61 @@
  * (3) sending the number of reads which the server performed.
  */
 
+// these includes do not seem to be part of program usage
+#include <cstdlib>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <netinet/tcp.h>
+#include <sys/uio.h>
+
+#include <pthread.h>
 #include <iostream>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <netinet/tcp.h>
-#include <sys/uio.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <pthread.h>
+#include <cstring>
+#include <cstdio>
 
 using namespace std;
 
 // set buffer size to 1500 bytes
 const int BUFSIZE = 1500;
 // set max number of connections at specified port-- part of listener
-const int NUM_CONNECTIONS = 5;
+const int NUM_CONNECTIONS = 5; // This will allow for 5 threads at any one time
+
+// pthreading info from
+// https://www.tutorialspoint.com/cplusplus/cpp_multithreading.htm
+struct threadData {
+    int threadID;
+    int newSD;
+};
 
 /*
  * Server only takes one argument- Port: Server IP port
  */
 int main(int argc, char *argv[]) {
-    // socket consists of a port and a server name
-    //int ServerPort;
-    //char *servername;
     char databuf[BUFSIZE];
     // zero the databuf
     bzero(databuf, BUFSIZE);
 
-    // TODO -- Assign pthread data to allow for multiple connections
 
     // Build the IP Address, this establishes where listening will be done--
     // May need to be changed to prevent collisions
     int port; // port request should match client port -- test  = 51278
     // Argument verification
     if (argc != 2) {
-        cerr << "Please enter valid port for " << argv[0] << endl;
+        cerr << "Please enter 5 digit numeric port value only" << argv[0] <<
+        endl;
     }
     port = stoi(argv[1]);
-//    // Verifies that the port is within valid access parameters
-//    // (49152 < port < 65535)
-//    if (port < 49152 || port > 65535){
-//        cerr << "Usage: " << argv[0] << " is not accessing a valid"
-//                                        " port value." << endl;
-//        return -1;
-//    }
+    // Verifies that the port is within valid access parameters
+    // (49152 < port < 65535)
+    if (port < 49152 || port > 65535){
+        cerr << "Usage: " << argv[0] << " acceptable ports for this usage are"
+                                        " between 49152 and 65535." << endl;
+        return -1;
+    }
 
     // data structure where address can be stored and binded to--
     // sockaddr_in is a struct
@@ -118,15 +123,18 @@ int main(int argc, char *argv[]) {
     int newSD = accept(serverSD, (sockaddr *) &newSockAddr, &newSockAddrSize);
     cout << "Accepted Socket #: " << newSD << endl;
 
+    // this portion receives the repetitions from the client
     int receivedInt = 0;
     int retStatus = read(newSD, &receivedInt, sizeof(receivedInt));
     if (retStatus > 0) {
-        fprintf(stdout, "Received int = %d\n", ntohl(receivedInt));
+        fprintf(stdout, "Received repetition value = %d\n", ntohl(receivedInt));
     } else {
-        cerr << "Repetition value was not received. Value is :" << ntohl(receivedInt) << endl;
+        cerr << "Repetition value was not received. Value is :"
+        << ntohl(receivedInt) << endl;
     }
 
-
+    // this reads each databuf segment until the max size of 1500B is read
+    // loops through by amount of repetitions received
     int reps = ntohl(receivedInt);
     cout << "The number of repetitions to perform is " << reps << endl;
     int count = 0;
@@ -139,6 +147,7 @@ int main(int argc, char *argv[]) {
             count++;
         }
     }
+
 
     cout << "Total Number of read calls made " << count << endl;
     // sends information about how many reads were made

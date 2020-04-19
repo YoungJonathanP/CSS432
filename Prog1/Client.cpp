@@ -17,17 +17,19 @@
  * (3) sending the number of reads which the server performed.
  */
 
+// these includes do not seem to be part of program usage
 #include <sys/types.h>
+#include <arpa/inet.h>
+#include <netinet/tcp.h>
+
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
 #include <netdb.h>
-#include <netinet/tcp.h>
 #include <sys/uio.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <iostream>
 // Chrono measurement came from
 // https://www.techiedelight.com/measure-elapsed-time-program-chrono-library/
