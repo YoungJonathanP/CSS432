@@ -202,18 +202,11 @@ int main(int argc, char *argv[]){
      */
     // now we have a socket, and we can read and write to that socket
     //
-//    databuf = new char[bufsize];
-//    // fill up databuf with z characters
-//    for (int i = 0; i < bufsize; i++){
-//        databuf[i] = 'z';
-//    }
 
-    // write to server databuf info up to bufsize
-//    int bytesWritten = write(clientSD, databuf, bufsize);
-//    cout << "Bytes Written: " << bytesWritten << endl;
     cout << "Arguments include: Port = " << port << ", num of repetitions = "
     << repetition << ", number of data buffers = " << nbufs
     << ", size of data buffers = " << bufsize << ", type = " << type << endl;
+
     // send the number of iterations
     int numToSend = htonl(repetition);
     write(clientSD, &numToSend, sizeof(numToSend));
@@ -227,7 +220,7 @@ int main(int argc, char *argv[]){
         // call for each data buffer, thus resulting in calling as many
         // write()s as the number of data buffers (nbufs)
         if (type == 1) {
-            cout << "Type 1 running" << endl;
+            cout << "Type 1 running " << repetition << " times" << endl;
             for (int i = 0; i < repetition; i++) {
                 for (int j = 0; j < nbufs; j++) {
                     write(clientSD, databuf[j], bufsize);
@@ -239,7 +232,7 @@ int main(int argc, char *argv[]){
         // data buffer as well as storing the buffer size in its iov_len
         // field; thereafter calls writev() to send all data buffers at once.
         if (type == 2) {
-            cout << "Type 2 running" << endl;
+            cout << "Type 2 running " << repetition << " times" << endl;
             for (int i = 0; i < repetition; i++) {
                 struct iovec vector[nbufs];
                 for (int j = 0; j < nbufs; j++) {
@@ -253,7 +246,7 @@ int main(int argc, char *argv[]){
         // of data buffers, and thereafter calls write() to send this array,
         // (i.e. all data buffers) at once.
         if (type == 3) {
-            cout << "Type 3 running" << endl;
+            cout << "Type 3 running " << repetition << " times" << endl;
             for (int i = 0; i < repetition; i++) {
                 write(clientSD, databuf, (nbufs * bufsize));
             }
@@ -265,15 +258,19 @@ int main(int argc, char *argv[]){
     cout << "Clock ended" << endl;
     // server writes back information to client
     // read from socket (clientSD) into databuf (should be 1500 bytes read)
-//    int bytesRead = read(clientSD, databuf, bufsize);
-//    cout << "Bytes Read: " << bytesRead << endl;
-//    cout << databuf[13] << endl; // prints out 13th value in databuf --
-    // server assigned 'R' to 13th character
 
-    int nreads;
+    int nreads = 0;
     // Server sends back how many read() system calls it performed
-    read(clientSD, &nreads, nbufs); // 3rd argument may be sizeof(reads)
+    int readStatus = read(clientSD, &nreads, sizeof(nreads));
     //cout << "There were " << readTimes << " read calls made" << endl;
+    if (readStatus > 0) {
+        fprintf(stdout, "Received number of reads is :%d\n", ntohl(nreads));
+    } else {
+        cerr << "Value for number of reads was not received."
+                " Value is :" << ntohl(nreads) << endl;
+    }
+
+    int inReads = ntohl(nreads);
 
     // Print information about the test
     int time = 0;
@@ -282,14 +279,21 @@ int main(int argc, char *argv[]){
     // convert size of transfer to Gigabit -- 125,000,000B = 1Gb
     // then divide that value by the time in seconds -- 1,000,000µsec = 1 sec
     // the result of that value is Gbps throughput
-    // nbufs * bufsize = 1500B (expected) / 125000000 = 0.000012 (expected)
-    // 0.000012 / (time/1000000) = throughput Gbps
+    // nbufs * bufsize = 1500B (expected) *(number of repetitions)= total size
+    // total size / 125000000 = total Gigabits
+    // (time/1000000) = microseconds in seconds
+    // total size(Gb) divided by time in seconds = throughput
+    // or simplified -- size in bytes / (125 * microseconds)
     int expectedSize = nbufs * bufsize;
+    //float sizeInGb = 0.0;
     cout << "Expected size is 1500, actual size is :" << expectedSize << endl;
-    cout << "Time in microseconds = " << time << endl;
-    throughput = ((expectedSize / 125000000) / (time / 1000000));
+    float totalSize = expectedSize * repetition;
+    cout << "Total amount of data transfered in Bytes is :" << totalSize << endl;
+    float timeInSec = 0.0;
+    timeInSec = (time * 125);
+    throughput = (totalSize / timeInSec);
     cout << "Test #" << type << ": time = " << time << " µsec, #reads = " <<
-    nreads << ", throughput " << throughput << " Gbps" << endl;
+    inReads << ", throughput " << throughput << " Gbps" << endl;
 
     // close client socket when done
     close(clientSD);

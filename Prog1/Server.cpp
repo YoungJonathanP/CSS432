@@ -50,9 +50,6 @@ int main(int argc, char *argv[]) {
     // zero the databuf
     bzero(databuf, BUFSIZE);
 
-    int receivedIterations = 0;
-
-
     // TODO -- Assign pthread data to allow for multiple connections
 
     // Build the IP Address, this establishes where listening will be done--
@@ -121,52 +118,33 @@ int main(int argc, char *argv[]) {
     int newSD = accept(serverSD, (sockaddr *) &newSockAddr, &newSockAddrSize);
     cout << "Accepted Socket #: " << newSD << endl;
 
-    // allows for read and write back to client. Read from socket (newSD),
-    // reading to (databuf), read up to (BUFFSIZE).
-    // What is returned from the read, is the number of bytes read
-//    int bytesRead = read(newSD, databuf, BUFSIZE);
-    // print out of how many bytes were read
-//    cout << "Bytes Read: " << bytesRead << endl;
-    // write out first character of bytes
-//    cout << databuf[0] << endl;
-
-    // ensures that read retrieves all BUFSIZE
-//    int count = 0;
-//    for (int nread = 0; (nread += read(newSD, databuf, BUFSIZE - nread)) <
-//    BUFSIZE; count++);
     int receivedInt = 0;
-    int convertCount = 0;
-    int retStatus = read(serverSD, &convertCount, sizeof(convertCount));
-    cout << "retStatus = " << retStatus << endl;
-    if (retStatus > 0){
-        int nRead;
-        receivedInt = ntohl(convertCount);
-        cout << "Repetition passed from client = " << receivedInt << endl;
-        for (int i = 0; i <= receivedInt; i++) {
-            nRead = 0;
-            while (nRead < BUFSIZE) {
-                int bytesRead = read(newSD, databuf, BUFSIZE - nRead);
-                nRead += bytesRead;
-            }
-        }
-        // sends information about how many reads were made
-        // htonl is conversion for sending info
-        convertCount =  htonl(nRead);
-        cout << "Converted count is " << convertCount << endl;
-        write(newSD, &convertCount, sizeof(convertCount));
+    int retStatus = read(newSD, &receivedInt, sizeof(receivedInt));
+    if (retStatus > 0) {
+        fprintf(stdout, "Received int = %d\n", ntohl(receivedInt));
+    } else {
+        cerr << "Repetition value was not received. Value is :" << ntohl(receivedInt) << endl;
     }
 
 
+    int reps = ntohl(receivedInt);
+    cout << "The number of repetitions to perform is " << reps << endl;
+    int count = 0;
+    int nRead;
+    for (int i = 0; i < reps; i++) {
+        nRead = 0;
+        while (nRead < BUFSIZE) {
+            int bytesRead = read(newSD, databuf, BUFSIZE - nRead);
+            nRead += bytesRead;
+            count++;
+        }
+    }
 
-    // set char 13 to 'R'
-//    databuf[13] = 'R';
-    // write this back to client. Write to socket (newSD), write updated
-    // databuf (13 = 'R')
-//    int bytesWritten = write(newSD, databuf, BUFSIZE);
-    // print out how many bytes were written
-//    cout << "Bytes Written: " << bytesWritten << endl;
-
-
+    cout << "Total Number of read calls made " << count << endl;
+    // sends information about how many reads were made
+    // htonl is conversion for sending info
+    int convertCount =  htonl(count);
+    write(newSD, &convertCount, sizeof(convertCount));
 
     // close client socket
     close(newSD);
