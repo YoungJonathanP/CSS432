@@ -1,0 +1,1 @@
+C:/cygwin64/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/Program_2.dir/hw2.cpp.o CMakeFiles/Program_2.dir/Timer.cpp.o CMakeFiles/Program_2.dir/UdpSocket.cpp.o  -o Program_2.exe -Wl,--out-implib,libProgram_2.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
