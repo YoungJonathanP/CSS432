@@ -1,7 +1,10 @@
 /*
- * Starter code provided by Prof. Robert Dimpsey - University of Washington
- * Bothell, CSS422 as described in Lecture 7
+ * Starter code provided by Prof. Robert Dimpsey - University of Washington,*
+ *      Bothell, CSS422 as described in Lecture 7
  * Code altered by Jonathan Young 4-20-2020
+ * Program 2: Sliding Window
+ * Purpose: This assignment implements the sliding window algorithm and
+ *      evaluates its performance improvement over a 1Gbps network.
  */
 
 #include <iostream>
@@ -9,7 +12,7 @@
 #include "Timer.h"
 using namespace std;
 
-const int PORT = 12345;       // my UDP port
+const int PORT = 51285;       // my UDP port - last 5 SID = 78512, using 51285.
 const int MAX = 20000;        // times of message transfer
 const int MAX_WIN = 30;       // maximum window size
 const bool verbose = false;   //use verbose mode for more information during run
@@ -174,24 +177,112 @@ void ServerUnreliable(UdpSocket &sock, int max, int message[])
     cout << max << " messages received" << endl;
 }
 
-int ClientStopWait(UdpSocket &sock, int max, int message[])
-{
-    //Implement this function
-    return -1;
+/*
+ * Helper method for starting connection and timer
+ */
+void StartSequence(UdpSocket &sock, int *message, Timer *timer){
+    sock.sendTo((char*)message, MSGSIZE);
+    timer->Start();
 }
 
+/*
+ * Helper method for verifying reception
+ */
+int &VerifyReceipt(UdpSocket &sock, int &ack, int &sequence){
+    sock.recvFrom((char*)&ack, sizeof(ack));
+    return ack == sequence ? ++sequence : sequence;
+}
+
+/*
+ * Implements Stop-and-Wait algorithm.
+ * Repeats sending message[] and receiving an ACK at the client side max
+ * times using the sock obj. If the client cannot receive an ACK immediately,
+ * it should start a timer and wait 1500µsec. If the wait timeouts, the
+ * client should resend the same message. The function must count the number
+ * of messages retransmitted and return it to the main function as its return
+ * value.
+*/
+ int ClientStopWait(UdpSocket &sock, int max, int message[])
+{
+    int retransmitted = 0;
+    int ack = 0;
+    Timer timer;
+    // tracks sequencing values
+    int sequence = 0;
+    // while loop that accounts for all sequence values
+    while (sequence < max){
+        // write to message sequence number in message[0]
+        message[0] = sequence;
+        // Sends message[] to given server and waits until it recieves int ACK
+        //sock.sendTo((char*)message, MSGSIZE);
+        // If ACK is not received immediately, start timer and wait 1500µsec
+        //timer.Start();
+        StartSequence(sock, message, &timer);
+        // UDP does not guarantee every single packet's delivery, once your
+        // client is blocked, it may not be resumed. Call pollRecvFrom()
+        // before reading the socket.
+        while (sock.pollRecvFrom() <= 0){
+            // Compare timer for timeout condition
+            if (timer.End() >= 1500){
+                StartSequence(sock, message, &timer);
+                retransmitted++;
+            }
+        }
+        VerifyReceipt(sock, ack, sequence);
+    }
+    return retransmitted;
+}
+
+/*
+ * Implements sliding window algorithm.
+ * Repeats sending message[] and receiving an acknowledgment at client side
+ * max times using the sock obj. Client can continuously send a new message[]
+ * and incrementing its sequence number as long as the number of in-transit
+ * message, (i.e., # of unacknowledged messages) is less than windowSize. If
+ * the # unacknowledged messages reaches windowSize, the client should start
+ * a timer for 1500µsec. If the timer timeouts, it must follow the sliding
+ * window algorithm and resend the message with the minimum sequence number
+ * among those which have net yet been ACKed. The function must count the
+ * number of messages retransmitted and return it to the main function as its
+ * return value.
+ */
 int ClientSlidingWindow(UdpSocket &sock, int max, int message[], int windowSize)
 {
     //Implement this function
     return -1;
 }
 
+/*
+ * Server portion of Stop-and-wait
+ * Repeats receiving message[] and sending an acknowledgement at a server
+ * side max times using the sock obj.
+ */
 void ServerReliable(UdpSocket &sock, int max, int message[])
 {
-   //Implement this function
-   return;
+   int ack = 0;
+   int sequence = 0;
+   // while loop that accounts for all sequence numbers
+   while (sequence < max){
+        // Receives and sends ACK max times using sock obj
+        sock.recvFrom((char*)&ack, sizeof(ack));
+        // Check if received message matches current sequence
+        // if true, return sequence number and increment sequence
+        // if false, continue reception until they match
+        if (ack == sequence){
+            sock.ackTo((char*)&sequence, sizeof(sequence));
+            sequence++;
+        }
+   }
+
 }
 
+/*
+ * Server portion of Sliding window
+ * Repeats receiving message[] and sending an ACK at the server side max
+ * times using the sock obj. Every time the server receives a new message[],
+ * it must record this message's sequence number in its array and returns a
+ * cumulative ACK.
+ */
 void ServerEarlyRetrans(UdpSocket &sock, int max, int message[],int windowSize )
 {
    //Implement this function
