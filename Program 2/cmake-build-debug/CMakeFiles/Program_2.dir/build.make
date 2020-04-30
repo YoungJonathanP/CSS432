@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cygdrive/c/Users/zero_/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /cygdrive/c/Users/zero_/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2"
+CMAKE_SOURCE_DIR = "/Users/jonathanyoung/CLionProjects/CSS432/Program 2"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug"
+CMAKE_BINARY_DIR = "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Program_2.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/Program_2.dir/flags.make
 
 CMakeFiles/Program_2.dir/hw2.cpp.o: CMakeFiles/Program_2.dir/flags.make
 CMakeFiles/Program_2.dir/hw2.cpp.o: ../hw2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Program_2.dir/hw2.cpp.o"
-	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/hw2.cpp.o -c "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/hw2.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Program_2.dir/hw2.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/hw2.cpp.o -c "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/hw2.cpp"
 
 CMakeFiles/Program_2.dir/hw2.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Program_2.dir/hw2.cpp.i"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/hw2.cpp" > CMakeFiles/Program_2.dir/hw2.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/hw2.cpp" > CMakeFiles/Program_2.dir/hw2.cpp.i
 
 CMakeFiles/Program_2.dir/hw2.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Program_2.dir/hw2.cpp.s"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/hw2.cpp" -o CMakeFiles/Program_2.dir/hw2.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/hw2.cpp" -o CMakeFiles/Program_2.dir/hw2.cpp.s
 
 CMakeFiles/Program_2.dir/Timer.cpp.o: CMakeFiles/Program_2.dir/flags.make
 CMakeFiles/Program_2.dir/Timer.cpp.o: ../Timer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Program_2.dir/Timer.cpp.o"
-	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/Timer.cpp.o -c "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/Timer.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Program_2.dir/Timer.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/Timer.cpp.o -c "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/Timer.cpp"
 
 CMakeFiles/Program_2.dir/Timer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Program_2.dir/Timer.cpp.i"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/Timer.cpp" > CMakeFiles/Program_2.dir/Timer.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/Timer.cpp" > CMakeFiles/Program_2.dir/Timer.cpp.i
 
 CMakeFiles/Program_2.dir/Timer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Program_2.dir/Timer.cpp.s"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/Timer.cpp" -o CMakeFiles/Program_2.dir/Timer.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/Timer.cpp" -o CMakeFiles/Program_2.dir/Timer.cpp.s
 
 CMakeFiles/Program_2.dir/UdpSocket.cpp.o: CMakeFiles/Program_2.dir/flags.make
 CMakeFiles/Program_2.dir/UdpSocket.cpp.o: ../UdpSocket.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Program_2.dir/UdpSocket.cpp.o"
-	C:/cygwin64/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/UdpSocket.cpp.o -c "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/UdpSocket.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Program_2.dir/UdpSocket.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Program_2.dir/UdpSocket.cpp.o -c "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/UdpSocket.cpp"
 
 CMakeFiles/Program_2.dir/UdpSocket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Program_2.dir/UdpSocket.cpp.i"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/UdpSocket.cpp" > CMakeFiles/Program_2.dir/UdpSocket.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/UdpSocket.cpp" > CMakeFiles/Program_2.dir/UdpSocket.cpp.i
 
 CMakeFiles/Program_2.dir/UdpSocket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Program_2.dir/UdpSocket.cpp.s"
-	C:/cygwin64/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/UdpSocket.cpp" -o CMakeFiles/Program_2.dir/UdpSocket.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/UdpSocket.cpp" -o CMakeFiles/Program_2.dir/UdpSocket.cpp.s
 
 # Object files for target Program_2
 Program_2_OBJECTS = \
@@ -105,16 +105,16 @@ Program_2_OBJECTS = \
 # External object files for target Program_2
 Program_2_EXTERNAL_OBJECTS =
 
-Program_2.exe: CMakeFiles/Program_2.dir/hw2.cpp.o
-Program_2.exe: CMakeFiles/Program_2.dir/Timer.cpp.o
-Program_2.exe: CMakeFiles/Program_2.dir/UdpSocket.cpp.o
-Program_2.exe: CMakeFiles/Program_2.dir/build.make
-Program_2.exe: CMakeFiles/Program_2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Program_2.exe"
+Program_2: CMakeFiles/Program_2.dir/hw2.cpp.o
+Program_2: CMakeFiles/Program_2.dir/Timer.cpp.o
+Program_2: CMakeFiles/Program_2.dir/UdpSocket.cpp.o
+Program_2: CMakeFiles/Program_2.dir/build.make
+Program_2: CMakeFiles/Program_2.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Program_2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Program_2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/Program_2.dir/build: Program_2.exe
+CMakeFiles/Program_2.dir/build: Program_2
 
 .PHONY : CMakeFiles/Program_2.dir/build
 
@@ -123,6 +123,6 @@ CMakeFiles/Program_2.dir/clean:
 .PHONY : CMakeFiles/Program_2.dir/clean
 
 CMakeFiles/Program_2.dir/depend:
-	cd "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Program_2.dir/depend
 

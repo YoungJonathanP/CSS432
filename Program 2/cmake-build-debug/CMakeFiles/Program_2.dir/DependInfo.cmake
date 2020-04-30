@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/Timer.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/Timer.cpp.o"
-  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/UdpSocket.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/UdpSocket.cpp.o"
-  "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/hw2.cpp" "/cygdrive/c/Users/zero_/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/hw2.cpp.o"
+  "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/Timer.cpp" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/Timer.cpp.o"
+  "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/UdpSocket.cpp" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/UdpSocket.cpp.o"
+  "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/hw2.cpp" "/Users/jonathanyoung/CLionProjects/CSS432/Program 2/cmake-build-debug/CMakeFiles/Program_2.dir/hw2.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
