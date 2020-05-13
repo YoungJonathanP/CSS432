@@ -16,10 +16,13 @@ Socket *sock;
 int main( int argc, char* argv[] ) {
     if ( argc > 1 ) {
         sock = new Socket( atoi( argv[1] ) );
-        if ( argc == 2 )
-            server( );
-        else if ( argc == 3 )
-            client( argv[2] );
+//        if ( argc == 2 )
+//            server( );
+//        else if ( argc == 3 )
+//            client( argv[2] );
+        if (argc == 3){
+            client(argv[2]);
+        }
     }
     else {
         usage( argv[0] );

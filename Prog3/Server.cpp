@@ -18,8 +18,8 @@ int main( int argc, char* argv[] ) {
         sock = new Socket( atoi( argv[1] ) );
         if ( argc == 2 )
             server( );
-        else if ( argc == 3 )
-            client( argv[2] );
+//        else if ( argc == 3 )
+//            client( argv[2] );
     }
     else {
         usage( argv[0] );
@@ -28,6 +28,7 @@ int main( int argc, char* argv[] ) {
     return 0;
 }
 
+// server code -- must use the <shutdown> system call
 void server( ) {
 
     // Get a server sd
