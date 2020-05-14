@@ -1,5 +1,6 @@
 //
 // Created by Jonathan Young on 5/10/2020.
+// Server code that emulates hw3_demo.cpp
 //
 
 #include "Socket.h"
@@ -8,7 +9,6 @@
 using namespace std;
 
 void server( );
-//void client( char ipName[] );
 void usage( char progName[] );
 
 Socket *sock;
@@ -18,8 +18,6 @@ int main( int argc, char* argv[] ) {
         sock = new Socket( atoi( argv[1] ) );
         if ( argc == 2 )
             server( );
-//        else if ( argc == 3 )
-//            client( argv[2] );
     }
     else {
         usage( argv[0] );
@@ -39,23 +37,13 @@ void server( ) {
     read( serverSd, message, 1500 );
     write( serverSd, message, 1 );
 
+    // serverside shutdown call
+    shutdown(serverSD, SHUT_WR);
+
     // Close socket but not send FIN.
     close( serverSd );
 }
 
-//void client( char ipName[] ) {
-//
-//    // Get a client sd
-//    int clientSd = sock->getClientSocket( ipName );
-//
-//    // Exchange data
-//    char message[1500];
-//    write( clientSd, message, 1500 );
-//    read( clientSd, message, 1 );
-//
-//    // Close socket to send FIN.
-//    close( clientSd );
-//}
 
 void usage( char progName[] ) {
     cerr << "usage:" << endl;
