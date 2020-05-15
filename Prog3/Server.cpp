@@ -13,6 +13,7 @@ void usage( char progName[] );
 
 Socket *sock;
 
+// argument acceptance and validation
 int main( int argc, char* argv[] ) {
     if ( argc > 1 ) {
         sock = new Socket( atoi( argv[1] ) );
@@ -48,5 +49,4 @@ void server( ) {
 void usage( char progName[] ) {
     cerr << "usage:" << endl;
     cerr << "server invocation: " << progName << " ipPort" << endl;
-    //cerr << "client invocation: " << progName << " ipPort ipName" << endl;
 }
