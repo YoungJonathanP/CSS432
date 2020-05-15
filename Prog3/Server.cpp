@@ -45,7 +45,7 @@ void server() {
 
 
     // Close socket but not send FIN.
-    close(serverSd);
+    //close(serverSd); // hw3 server model does not sent close
 }
 
 
